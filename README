@@ -1,5 +1,7 @@
 # DEV NOTES
 
+USERNAME EN SAVE FILE ES UNDEFINED Y NEXT DA COMO NO FUNCION EN NEWFILE
+
 # Online Hard Disk
 
 - Se trata de una web donde los usuarios pueden acceder a un espacio personal
@@ -23,16 +25,15 @@
 
 ## Endpoints del usuario
 
-- **POST** - [`/users`] - Crea un usuario.
-- **POST** - [`/users/login`] - Logea a un usuario retornando un token.
-- **GET** - [`/users/:idUser`] - Retorna información de un usuario. ➡️ `Token`
+- **POST** - [`/users`] - Crea un usuario y crea su carpeta✅
+- **POST** - [`/users/login`] - Logea a un usuario retornando un token.✅
 - **PUT** - [`/users/modify`] - Permite modificar informacion del usuario. ➡️ `Token`
 
 ## Endpoints de los Archivos
 
 - **POST** - [`/files`] - Subir un archivo. ➡️ `Token`
 - **GET** - [`/files`] - Retorna el listado de archivos.
-- **GET** - [`/files/:idFile`] - Retorna un archivo en concreto.
+- **GET** - [`/files/:idFile`] - Descargar un archivo en concreto.
 - **DELETE** - [`/files/:idFile`] - Eliminar un archivo de la carpeta. ➡️ `Token`
 
 # END OF DEV NOTES

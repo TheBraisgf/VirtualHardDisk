@@ -24,6 +24,7 @@ const loginUser = async (req, res, next) => {
     //Creamos un objeto con la info del token
     const tokenInfo = {
       id: user.id,
+      username: user.username,
       password: user.password,
     };
 

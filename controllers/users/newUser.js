@@ -1,5 +1,5 @@
 const insertUserQuery = require("../../bbdd/queries/users/insertUserQuery");
-const { generateError } = require("../../helpers");
+const { generateError, newFolder } = require("../../helpers");
 
 const newUser = async (req, res, next) => {
   try {
@@ -13,8 +13,10 @@ const newUser = async (req, res, next) => {
     //Insertamos el nuevo usuario en la BBDD
     await insertUserQuery(username, email, password);
 
+    await newFolder(username);
+
     res.status(200).send({
-      message: "User created",
+      message: "User and folder created",
     });
   } catch (err) {
     next(err);

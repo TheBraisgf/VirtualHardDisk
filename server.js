@@ -1,11 +1,15 @@
 require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
+const fileUpload = require("express-fileupload");
 
 const app = express();
 
 //MW Leer body
 app.use(express.json());
+
+//MW LEER FORM DATA
+app.use(fileUpload());
 
 //MW Morgan
 app.use(morgan("dev"));
@@ -28,6 +32,9 @@ app.get("/users/login", loginUser);
  * ## Controladores Files       ##
  * ###############################
  */
+const { newFile } = require("./controllers/files/index");
+
+app.post("/files", newFile);
 
 /**
  * ###############################
