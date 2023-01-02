@@ -1,10 +1,9 @@
 const jwt = require("jsonwebtoken");
-const { token } = require("morgan");
 const { generateError } = require("../helpers");
 
 const isAuth = async (req, res, next) => {
   try {
-    const { authorization } = req.header;
+    const { authorization } = req.headers;
 
     if (!authorization) {
       throw generateError("Missing authorization", 400);
@@ -19,9 +18,10 @@ const isAuth = async (req, res, next) => {
       throw generateError("Invalid token", 401);
     }
 
-    return tokenInfo.username;
+    req.user = tokenInfo;
+    next();
   } catch (err) {
-    // next(err);
+    next(err);
   }
 };
 

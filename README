@@ -31,7 +31,7 @@ USERNAME EN SAVE FILE ES UNDEFINED Y NEXT DA COMO NO FUNCION EN NEWFILE
 
 ## Endpoints de los Archivos
 
-- **POST** - [`/files`] - Subir un archivo. ➡️ `Token`
+- **POST** - [`/files`] - Subir un archivo. ➡️ `Token`✅
 - **GET** - [`/files`] - Retorna el listado de archivos.
 - **GET** - [`/files/:idFile`] - Descargar un archivo en concreto.
 - **DELETE** - [`/files/:idFile`] - Eliminar un archivo de la carpeta. ➡️ `Token`

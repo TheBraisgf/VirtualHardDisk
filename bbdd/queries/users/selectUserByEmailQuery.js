@@ -7,7 +7,7 @@ const selectUserByEmailQuery = async (email) => {
     connection = await getConnection();
     const [users] = await connection.query(
       `
-SELECT id, password FROM users WHERE email = ?
+SELECT id, username, password FROM users WHERE email = ?
 `,
       [email]
     );

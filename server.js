@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
 const fileUpload = require("express-fileupload");
+const isAuth = require("./middlewares/isAuth");
 
 const app = express();
 
@@ -34,7 +35,7 @@ app.get("/users/login", loginUser);
  */
 const { newFile } = require("./controllers/files/index");
 
-app.post("/files", newFile);
+app.post("/files", isAuth, newFile);
 
 /**
  * ###############################
