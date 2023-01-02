@@ -5,7 +5,7 @@
 - Se trata de una web donde los usuarios pueden acceder a un espacio personal
   donde subir ficheros.
 
-- Cada usuario tiene nombre de usuario, email, contrasena.
+- Cada usuario tiene nombre de usuario, email, contraseña.
 
 - Cada usuario podra crear una carpeta personal donde a su vez podra ver, subir, borrar o descargar sus archivos.
 
