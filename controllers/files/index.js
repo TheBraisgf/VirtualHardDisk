@@ -1,3 +1,4 @@
 const newFile = require("./newFile");
+const listFiles = require("./listFiles");
 
-module.exports = { newFile };
+module.exports = { newFile, listFiles };

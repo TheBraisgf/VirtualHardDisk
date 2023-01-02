@@ -33,9 +33,11 @@ app.get("/users/login", loginUser);
  * ## Controladores Files       ##
  * ###############################
  */
-const { newFile } = require("./controllers/files/index");
+const { newFile, listFiles } = require("./controllers/files/index");
 
 app.post("/files", isAuth, newFile);
+
+app.get("/files", isAuth, listFiles);
 
 /**
  * ###############################
@@ -53,7 +55,9 @@ app.use((err, req, res, next) => {
 });
 //MW 404
 app.use((req, res) => {
-  res.status(404);
+  res.status(404).send({
+    message: "Invalid Path",
+  });
 });
 
 app.listen(process.env.PORT, () => {
