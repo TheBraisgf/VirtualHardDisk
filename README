@@ -1,1 +1,146 @@
-API VIRTUAL HARD DISK
+# DEV NOTES
+
+# Online Hard Disk
+
+- Se trata de una web donde los usuarios pueden acceder a un espacio personal
+  donde subir ficheros.
+
+- Cada usuario tiene nombre de usuario, email, contrasena.
+
+- Cada usuario podra crear una carpeta personal donde a su vez podra ver, subir, borrar o descargar sus archivos.
+
+- Opcionalmente se podra modificar los datos del usuario.
+
+- Los archivos tendran id y un nombre.
+
+- La carpeta del usuario tendra su nombre de usuario.
+
+## Base de datos
+
+- **`users:`** id, username`*`, email`*`, password`*`, photo, createdAt, modifiedAt.
+
+- **`files:`** id, name`*`, user_id, createdAt.
+
+## Endpoints del usuario
+
+- **POST** - [`/users`] - Crea un usuario.
+- **POST** - [`/users/login`] - Logea a un usuario retornando un token.
+- **GET** - [`/users/:idUser`] - Retorna información de un usuario. ➡️ `Token`
+- **PUT** - [`/users/modify`] - Permite modificar informacion del usuario. ➡️ `Token`
+
+## Endpoints de los Archivos
+
+- **POST** - [`/files`] - Subir un archivo. ➡️ `Token`
+- **GET** - [`/files`] - Retorna el listado de archivos.
+- **GET** - [`/files/:idFile`] - Retorna un archivo en concreto.
+- **DELETE** - [`/files/:idFile`] - Eliminar un archivo de la carpeta. ➡️ `Token`
+
+# END OF DEV NOTES
+
+✅
+
+# Virtual Hard Disk
+
+Virtual Hard Disk is a back-end project for Hack A Boss Bootcamp.
+
+## Deployment
+
+To deploy this project run
+
+```bash
+  npm run deploy
+```
+
+## API Reference
+
+### Users Endpoints
+
+#### New User
+
+```http
+  POST /users
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `api_key` | `string` | **Required**. Your API key |
+
+#### Login User
+
+```http
+  POST /users/login
+```
+
+#### Return user information
+
+```http
+  POST /users/:idUser
+```
+
+#### Modify user information
+
+```http
+  PUT /users/modify
+```
+
+### Files Endpoints
+
+#### Upload File
+
+```http
+  POST /files
+```
+
+#### List of files
+
+```http
+  GET /files
+```
+
+#### Return a file
+
+```http
+  GET /files/:idFile
+```
+
+#### Removes a file
+
+```http
+  DELETE /files/:idFile
+```
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`MYSQL_HOST`
+
+`MYSQL_USER`
+
+`MYSQL_PASS`
+
+`MYSQL_BBDD`
+
+`ADMIN_PASS`
+
+`PORT`
+
+`SECRET`
+
+`UPLOADS_DIR`
+
+## Feedback
+
+If you have any feedback, please reach out to us at braisgf@gmail.com
+
+# 💡Authors
+
+## [![linkedin](https://img.shields.io/badge/TheBraisGF-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/TheBraisgf)
+
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/braisgf/)
+
+[![codewars](https://img.shields.io/badge/Codewars-B1361E?style=for-the-badge&logo=Codewars&logoColor=white)](https://www.codewars.com/users/Braisgf)
+
+[![instabio](https://img.shields.io/badge/SOCIAL_MEDIA-FFA500?style=for-the-badge&logo=rss&logoColor=white)](https://instabio.cc/3030409IOuIr3)
+
+## [![linkedin](https://img.shields.io/badge/pabloberu-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/pabloberu)
