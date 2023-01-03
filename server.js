@@ -33,11 +33,28 @@ app.get("/users/login", loginUser);
  * ## Controladores Files       ##
  * ###############################
  */
-const { newFile, listFiles } = require("./controllers/files/index");
+const {
+  newFile,
+  listFiles,
+  getFile,
+  removeFile,
+  createFolder,
+} = require("./controllers/files/index");
 
+//Ruta para subir un archivo
 app.post("/files", isAuth, newFile);
 
+//Ruta para listar todos los archivos de un usuario
 app.get("/files", isAuth, listFiles);
+
+//Ruta para descargar un archivo
+app.get("/files/:idFile", isAuth, getFile);
+
+//Ruta para borrar archivo
+app.delete("/files/:idFile", isAuth, removeFile);
+
+//Ruta para crear una carpeta
+app.post("/files/newfolder", isAuth, createFolder);
 
 /**
  * ###############################

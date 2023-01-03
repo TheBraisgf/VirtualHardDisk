@@ -32,18 +32,34 @@ const newFolder = async (folderName) => {
 
 // Guardar archivo
 
-const saveFile = async (file, username) => {
-  const fileName = file.name;
-  const uploadsPath = path.join(
-    __dirname,
-    process.env.ROOT,
-    username,
-    fileName
-  );
+const saveFile = async (file, username, folder) => {
+  console.log(folder);
+  if (!folder) {
+    const fileName = file.name;
+    const uploadsPath = path.join(
+      __dirname,
+      process.env.ROOT,
+      username,
+      fileName
+    );
 
-  file.mv(uploadsPath, (err) => {
-    if (err) console.log("ERROR: " + err);
-  });
+    file.mv(uploadsPath, (err) => {
+      if (err) console.log("ERROR: " + err);
+    });
+  } else {
+    const fileName = file.name;
+    const uploadsPath = path.join(
+      __dirname,
+      process.env.ROOT,
+      username,
+      folder,
+      fileName
+    );
+
+    file.mv(uploadsPath, (err) => {
+      if (err) console.log("ERROR: " + err);
+    });
+  }
 };
 
 module.exports = { generateError, newFolder, saveFile };

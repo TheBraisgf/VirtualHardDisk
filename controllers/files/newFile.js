@@ -1,4 +1,4 @@
-const { generateError, saveFile } = require("../../helpers");
+const { generateError, saveFile, newFolder } = require("../../helpers");
 const isAuth = require("../../middlewares/isAuth");
 const insertNewFileQuery = require("../../bbdd/queries/files/insertNewFileQuery");
 
@@ -10,8 +10,12 @@ const newFile = async (req, res, next) => {
       throw generateError("Missing File", 400);
     }
     const file = req.files.file;
+    const { folder } = req.body;
+
+    //Llamamos a create folder para comprobar y/o crear la carpeta del usuario
+    await newFolder(user.username);
     //Guardar el archivo en el disco y obtener su nombre
-    await saveFile(req.files.file, user.username);
+    await saveFile(req.files.file, user.username, folder);
 
     //Guardar el nombre archivo en la base de datos.
 

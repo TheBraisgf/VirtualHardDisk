@@ -1,6 +1,8 @@
 # DEV NOTES
 
-USERNAME EN SAVE FILE ES UNDEFINED Y NEXT DA COMO NO FUNCION EN NEWFILE
+REMOVE DE LA BASE DE DATOS
+EDIT: FILTRAR EL USUARIO POR TODOS SUS DATOS Y SOBRESCRIBIR LA INFORMACION SI VIENE.
+CREAR BIO EN LA BASE DE DATOS
 
 # Online Hard Disk
 
@@ -33,12 +35,10 @@ USERNAME EN SAVE FILE ES UNDEFINED Y NEXT DA COMO NO FUNCION EN NEWFILE
 
 - **POST** - [`/files`] - Subir un archivo. ➡️ `Token`✅
 - **GET** - [`/files`] - Retorna el listado de archivos. `Token`✅
-- **GET** - [`/files/:idFile`] - Descargar un archivo en concreto.
-- **DELETE** - [`/files/:idFile`] - Eliminar un archivo de la carpeta. ➡️ `Token`
+- **GET** - [`/files/:idFile`] - Descargar un archivo en concreto.`Token`✅
+- **DELETE** - [`/files/:idFile`] - Eliminar un archivo de la carpeta. ➡️ `Token`✅
 
 # END OF DEV NOTES
-
-✅
 
 # Virtual Hard Disk
 

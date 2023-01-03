@@ -1,26 +1,27 @@
 const getConnection = require("../../getConnection");
 const { generateError } = require("../../../helpers");
 
-const selectAllFilesQuery = async (userId) => {
+const getFileById = async (idFile, idUser) => {
   let connection;
+
   try {
     connection = await getConnection();
 
-    const [files] = await connection.query(
+    const [file] = await connection.query(
       `
-    SELECT * FROM files WHERE user_id = ?
+   SELECT name FROM files WHERE id = ? AND user_id = ?
     `,
-      [userId]
+      [idFile, idUser]
     );
 
-    if (files.length < 1) {
+    if (file.length < 1) {
       throw generateError("No files", 404);
     }
 
-    return files;
+    return file[0];
   } finally {
     if (connection) connection.release();
   }
 };
 
-module.exports = selectAllFilesQuery;
+module.exports = getFileById;
