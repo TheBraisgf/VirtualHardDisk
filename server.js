@@ -20,13 +20,16 @@ app.use(morgan("dev"));
  * ## Controladores Users       ##
  * ###############################
  */
-const { newUser, loginUser } = require("./controllers/users/index");
+const { newUser, loginUser, editUser } = require("./controllers/users/index");
 
 //Ruta para nuevo usuario
 app.post("/users", newUser);
 
 //Ruta para login de usuario
 app.get("/users/login", loginUser);
+
+//Ruta para editar usuario
+app.put("/users/edit", isAuth, editUser);
 
 /**
  * ###############################

@@ -1,5 +1,5 @@
 const insertUserQuery = require("../../bbdd/queries/users/insertUserQuery");
-const { generateError, newFolder } = require("../../helpers");
+const { generateError, newFolder, newProfileFolder } = require("../../helpers");
 
 const newUser = async (req, res, next) => {
   try {
@@ -14,6 +14,9 @@ const newUser = async (req, res, next) => {
     await insertUserQuery(username, email, password);
 
     await newFolder(username);
+
+    //Creamos tambien una carpeta para contener las fotos de perfil
+    await newProfileFolder();
 
     res.status(200).send({
       message: "User and folder created",

@@ -26,6 +26,8 @@ const loginUser = async (req, res, next) => {
       id: user.id,
       username: user.username,
       password: user.password,
+      photo: user.photo,
+      bio: user.bio,
     };
 
     //Creamos el token

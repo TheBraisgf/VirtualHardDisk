@@ -11,6 +11,20 @@ const generateError = (msg, status) => {
 
 //CREAR CARPETA
 
+const newProfileFolder = async () => {
+  const profileFolder = path.join(__dirname, "profilePhotos");
+  //Comprobamos que exista la carpeta raiz.
+  try {
+    //Intentamos acceder al directoiro de subida de archivos mediante access.
+    await fs.access(profileFolder);
+  } catch {
+    //Si no es posible acceder al directorio lanzara un error y creamos el directorio
+    await fs.mkdir(profileFolder);
+  }
+};
+
+//CREAR CARPETA
+
 const newFolder = async (folderName) => {
   const root = path.join(__dirname, process.env.ROOT);
   const userFolder = path.join(__dirname, process.env.ROOT, folderName);
@@ -121,4 +135,10 @@ const newPersonalizedFolder = async (username, folder) => {
   }
 };
 
-module.exports = { generateError, newFolder, saveFile, newPersonalizedFolder };
+module.exports = {
+  generateError,
+  newFolder,
+  saveFile,
+  newPersonalizedFolder,
+  newProfileFolder,
+};
