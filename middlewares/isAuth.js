@@ -19,6 +19,7 @@ const isAuth = async (req, res, next) => {
     }
 
     req.user = tokenInfo;
+    console.log(req.user);
     next();
   } catch (err) {
     next(err);

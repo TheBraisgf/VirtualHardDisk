@@ -2,6 +2,7 @@ const updateUserInfoQuery = require("../../bbdd/queries/users/updateUserInfoQuer
 const { generateError } = require("../../helpers");
 const fs = require("fs/promises");
 const path = require("path");
+const selectUserByEmailQuery = require("../../bbdd/queries/users/selectUserByEmailQuery");
 
 const editUser = async (req, res, next) => {
   try {
@@ -9,29 +10,49 @@ const editUser = async (req, res, next) => {
     let { username, bio } = req.body;
     let photo = req.files.photo;
 
-    if (!username) {
-      username = user.username;
-    }
-    if (!req.files?.photo) {
-      photo = user.photo;
-    }
-    if (!bio) {
-      bio = user.bio;
-    }
-    //Tratamos de obtener al usuario con el ID que venga de Auth
-    await updateUserInfoQuery(username, photo.name, bio, user.id);
+    console.log("USER INFO TOKEN:" + user);
 
-    //GUARDAR LA FOTO EN DISCO
-    //Comprobamos que exista folder de fotos de perfil.
-    const profileFolder = path.join(
+    let actualInfo = await selectUserByEmailQuery(user.email);
+
+    const newPhoto = path.join(
       __dirname,
       "../../",
       "profilePhotos",
       photo.name
     );
-    console.log(profileFolder);
+    console.log(user);
+    const oldPhoto = path.join(
+      __dirname,
+      "../../",
+      "profilePhotos",
+      actualInfo.photo
+    );
 
-    photo.mv(profileFolder, (err) => {
+    if (!username) {
+      username = actualInfo.username;
+    }
+    if (!req.files?.photo) {
+      photo = actualInfo.photo;
+    } else {
+      if (actualInfo.photo === "photo") {
+        console.log("Old Photo");
+      } else {
+        //Eliminamos lafoto del disco
+        fs.unlink(oldPhoto, function (err) {
+          if (err) return console.log(err);
+        });
+      }
+    }
+
+    //Tratamos de obtener al usuario con el ID que venga de Auth
+    await updateUserInfoQuery(username, photo.name, bio, actualInfo.id);
+
+    //GUARDAR LA FOTO EN DISCO
+    //Comprobamos que exista folder de fotos de perfil.
+
+    console.log(newPhoto);
+
+    photo.mv(newPhoto, (err) => {
       if (err) console.log("ERROR: " + err);
     });
 

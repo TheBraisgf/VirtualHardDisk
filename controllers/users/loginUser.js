@@ -25,11 +25,13 @@ const loginUser = async (req, res, next) => {
     const tokenInfo = {
       id: user.id,
       username: user.username,
+      email: user.email,
       password: user.password,
       photo: user.photo,
       bio: user.bio,
     };
 
+    console.log(tokenInfo);
     //Creamos el token
     const token = jwt.sign(tokenInfo, process.env.SECRET, {
       expiresIn: "30d",
