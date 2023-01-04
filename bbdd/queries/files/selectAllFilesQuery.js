@@ -8,7 +8,7 @@ const selectAllFilesQuery = async (userId) => {
 
     const [files] = await connection.query(
       `
-    SELECT * FROM files WHERE user_id = ?
+    SELECT * FROM files WHERE user_id = ? AND removed = 0
     `,
       [userId]
     );

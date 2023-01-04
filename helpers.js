@@ -23,14 +23,16 @@ const newFolder = async (folderName) => {
     await fs.mkdir(root);
   }
 
+  console.log(userFolder);
+
   try {
     await fs.access(userFolder);
-  } catch (error) {
+  } catch {
     await fs.mkdir(userFolder);
   }
 };
 
-// Guardar archivo
+// Guardar archivo EN USERNAME
 
 const saveFile = async (file, username, folder) => {
   console.log(folder);
@@ -43,11 +45,23 @@ const saveFile = async (file, username, folder) => {
       fileName
     );
 
-    file.mv(uploadsPath, (err) => {
-      if (err) console.log("ERROR: " + err);
-    });
-  } else {
+    //Comprobamos que exista el archivo.
+    try {
+      //Intentamos acceder al directorio.
+      await fs.access(uploadsPath);
+      return true;
+    } catch {
+      file.mv(uploadsPath, (err) => {
+        if (err) console.log("ERROR: " + err);
+      });
+      return false;
+    }
+  }
+
+  //SI EL USUARIO ESPECIFICA UNA CARPETA
+  else {
     const fileName = file.name;
+    const folderPath = path.join(__dirname, process.env.ROOT, username, folder);
     const uploadsPath = path.join(
       __dirname,
       process.env.ROOT,
@@ -56,10 +70,55 @@ const saveFile = async (file, username, folder) => {
       fileName
     );
 
-    file.mv(uploadsPath, (err) => {
-      if (err) console.log("ERROR: " + err);
+    //Comprobamos que exista la carpeta NEWFOLDERNAME.
+    try {
+      //Intentamos acceder al directorio.
+      await fs.access(folderPath);
+    } catch {
+      //Si no es posible acceder al directorio lanzara un error y creamos el directorio
+      await fs.mkdir(folderPath, (err) => {
+        if (err) {
+          return console.error(err);
+        }
+      });
+    }
+
+    //Comprobamos que exista el archivo.
+    try {
+      //Intentamos acceder al directorio.
+      await fs.access(uploadsPath);
+      return true;
+    } catch {
+      file.mv(uploadsPath, (err) => {
+        if (err) console.log("ERROR: " + err);
+      });
+      return false;
+    }
+  }
+};
+
+//////////////////////////////////////
+const newPersonalizedFolder = async (username, folder) => {
+  const newFolderPath = path.join(
+    __dirname,
+    "../../",
+    process.env.ROOT,
+    username,
+    folder
+  );
+
+  //Comprobamos que exista la carpeta NEWFOLDERNAME.
+  try {
+    //Intentamos acceder al directorio.
+    await fs.access(newFolderPath);
+  } catch {
+    //Si no es posible acceder al directorio lanzara un error y creamos el directorio
+    await fs.mkdir(newFolderPath, (err) => {
+      if (err) {
+        return console.error(err);
+      }
     });
   }
 };
 
-module.exports = { generateError, newFolder, saveFile };
+module.exports = { generateError, newFolder, saveFile, newPersonalizedFolder };

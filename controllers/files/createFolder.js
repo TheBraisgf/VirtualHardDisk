@@ -31,18 +31,22 @@ const createFolder = async (req, res, next) => {
   try {
     //Intentamos acceder al directorio.
     await fs.access(newFolderPath);
+    console.log("ESTOY EN EL TRY");
   } catch {
     //Si no es posible acceder al directorio lanzara un error y creamos el directorio
+    console.log("ESTOY EN EL CATCH");
     await fs.mkdir(newFolderPath, (err) => {
       if (err) {
+        res.send({
+          message: "Directory already Exists!",
+        });
         return console.error(err);
       }
+      res.send({
+        message: "Directory created successfully!",
+      });
     });
   }
-
-  res.send({
-    message: "Directory created successfully!",
-  });
 };
 
 module.exports = createFolder;

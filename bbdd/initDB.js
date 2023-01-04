@@ -23,6 +23,7 @@ const main = async () => {
         email VARCHAR(255) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
         photo VARCHAR(255),
+        bio VARCHAR(1000),
         createdAt TIMESTAMP NOT NULL
       )
     `);
@@ -33,6 +34,7 @@ const main = async () => {
         user_id INT UNSIGNED NOT NULL,
         FOREIGN KEY (user_id) REFERENCES users(id),
         name VARCHAR(255) NOT NULL,
+        removed BOOLEAN DEFAULT 0,
         createdAt TIMESTAMP NOT NULL
       );
       `);

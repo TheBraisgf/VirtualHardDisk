@@ -5,17 +5,29 @@ const fs = require("fs");
 const getFile = async (req, res, next) => {
   try {
     const user = req.user;
-    const { idFile } = req.params;
+    const { idFile, folder } = req.params;
 
     const fileName = await getFileById(idFile, user.id);
+    let downloadPath;
 
-    const downloadPath = path.join(
-      __dirname,
-      "../../",
-      process.env.ROOT,
-      user.username,
-      fileName.name
-    );
+    if (!folder) {
+      downloadPath = path.join(
+        __dirname,
+        "../../",
+        process.env.ROOT,
+        user.username,
+        fileName.name
+      );
+    } else {
+      downloadPath = path.join(
+        __dirname,
+        "../../",
+        process.env.ROOT,
+        user.username,
+        folder,
+        fileName.name
+      );
+    }
 
     console.log(downloadPath);
 

@@ -1,7 +1,7 @@
 const getConnection = require("../../getConnection");
 const { generateError } = require("../../../helpers");
 
-const getFileById = async (idFile, idUser) => {
+const removeElementByIdQuery = async (idFile, idUser) => {
   let connection;
 
   try {
@@ -9,19 +9,12 @@ const getFileById = async (idFile, idUser) => {
 
     const [file] = await connection.query(
       `
-   SELECT name FROM files WHERE id = ? AND user_id = ? AND removed = 0
-    `,
+   UPDATE files SET removed = 1 WHERE id = ? AND user_id = ?    `,
       [idFile, idUser]
     );
-
-    if (file.length < 1) {
-      throw generateError("No files", 404);
-    }
-
-    return file[0];
   } finally {
     if (connection) connection.release();
   }
 };
 
-module.exports = getFileById;
+module.exports = removeElementByIdQuery;

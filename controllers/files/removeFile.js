@@ -1,6 +1,7 @@
 const getFileById = require("../../bbdd/queries/files/getFileByIdQuery");
 const path = require("path");
 const fs = require("fs");
+const removeElementByIdQuery = require("../../bbdd/queries/files/removeElementByIdQuery");
 
 const removeFile = async (req, res, next) => {
   try {
@@ -37,6 +38,9 @@ const removeFile = async (req, res, next) => {
               console.log("file deleted successfully");
             });
 
+            //Hacemos el borrado logico de la BBDD
+            removeElementByIdQuery(idFile, user.id);
+
             res.status(200).send({
               message: "Remove completed",
             });
@@ -45,7 +49,10 @@ const removeFile = async (req, res, next) => {
       } catch (err) {
         next(err);
       }
-    } else {
+    }
+
+    //CUANDO NOS PASAN UNA CARPETA
+    else {
       const removePath = path.join(
         __dirname,
         "../../",
@@ -65,11 +72,14 @@ const removeFile = async (req, res, next) => {
         } else {
           console.log("Found File!!");
 
+          //Quitamos del disco
           fs.unlink(removePath, function (err) {
             if (err) return console.log(err);
             console.log("file deleted successfully");
           });
-
+          console.log("BORRADO LOGICO");
+          //Hacemos el borrado logico de la BBDD
+          removeElementByIdQuery(idFile, user.id);
           res.status(200).send({
             message: "Remove completed",
           });

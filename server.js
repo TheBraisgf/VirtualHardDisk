@@ -50,8 +50,11 @@ app.get("/files", isAuth, listFiles);
 //Ruta para descargar un archivo
 app.get("/files/:idFile", isAuth, getFile);
 
-//Ruta para borrar archivo
-app.delete("/files/:idFile", isAuth, removeFile);
+//Ruta para descargar archivo en folder
+app.get("/files/:folder/:idFile", isAuth, getFile);
+
+//Ruta para borrar archivo en raiz
+app.delete("/files/:idFile/", isAuth, removeFile);
 
 //Ruta para crear una carpeta
 app.post("/files/newfolder", isAuth, createFolder);
