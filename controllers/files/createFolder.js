@@ -1,9 +1,12 @@
 const path = require("path");
 const fs = require("fs");
+const selectUserById = require("../../bbdd/queries/users/selectUserByIdQuery");
 
 const createFolder = async (req, res, next) => {
   const user = req.user;
   const { newFolderName } = req.body;
+
+  let userId = await selectUserById(user.id);
 
   const root = path.join(__dirname, "../../", process.env.ROOT);
   //Comprobamos que exista la carpeta raiz.
@@ -23,7 +26,7 @@ const createFolder = async (req, res, next) => {
     __dirname,
     "../../",
     process.env.ROOT,
-    user.username,
+    userId.username,
     newFolderName
   );
 

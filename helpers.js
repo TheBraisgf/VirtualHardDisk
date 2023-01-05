@@ -27,7 +27,12 @@ const newProfileFolder = async () => {
 
 const newFolder = async (folderName) => {
   const root = path.join(__dirname, process.env.ROOT);
-  const userFolder = path.join(__dirname, process.env.ROOT, folderName);
+  const userFolder = path.join(
+    __dirname,
+    process.env.ROOT,
+    folderName.username
+  );
+
   //Comprobamos que exista la carpeta raiz.
   try {
     //Intentamos acceder al directoiro de subida de archivos mediante access.
@@ -55,7 +60,7 @@ const saveFile = async (file, username, folder) => {
     const uploadsPath = path.join(
       __dirname,
       process.env.ROOT,
-      username,
+      username.username,
       fileName
     );
 
@@ -75,11 +80,16 @@ const saveFile = async (file, username, folder) => {
   //SI EL USUARIO ESPECIFICA UNA CARPETA
   else {
     const fileName = file.name;
-    const folderPath = path.join(__dirname, process.env.ROOT, username, folder);
+    const folderPath = path.join(
+      __dirname,
+      process.env.ROOT,
+      username.username,
+      folder
+    );
     const uploadsPath = path.join(
       __dirname,
       process.env.ROOT,
-      username,
+      username.username,
       folder,
       fileName
     );

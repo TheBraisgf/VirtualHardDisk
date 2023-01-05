@@ -42,6 +42,7 @@ const {
   getFile,
   removeFile,
   createFolder,
+  removeFolder,
 } = require("./controllers/files/index");
 
 //Ruta para subir un archivo
@@ -61,6 +62,9 @@ app.delete("/files/:idFile/", isAuth, removeFile);
 
 //Ruta para crear una carpeta
 app.post("/files/newfolder", isAuth, createFolder);
+
+//Ruta para borrar una carpeta Y su contenido
+app.delete("/folder", isAuth, removeFolder);
 
 /**
  * ###############################

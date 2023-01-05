@@ -2,12 +2,14 @@ const getFileById = require("../../bbdd/queries/files/getFileByIdQuery");
 const path = require("path");
 const fs = require("fs");
 const removeElementByIdQuery = require("../../bbdd/queries/files/removeElementByIdQuery");
+const selectUserById = require("../../bbdd/queries/users/selectUserByIdQuery");
 
 const removeFile = async (req, res, next) => {
   try {
     const user = req.user;
     const { idFile } = req.params;
     const { newFolderName } = req.body;
+    const username = await selectUserById(user.id);
 
     const fileName = await getFileById(idFile, user.id);
     console.log(newFolderName);
@@ -17,7 +19,7 @@ const removeFile = async (req, res, next) => {
           __dirname,
           "../../",
           process.env.ROOT,
-          user.username,
+          username.username,
           fileName.name
         );
 
@@ -57,7 +59,7 @@ const removeFile = async (req, res, next) => {
         __dirname,
         "../../",
         process.env.ROOT,
-        user.username,
+        username.username,
         newFolderName,
         fileName.name
       );
