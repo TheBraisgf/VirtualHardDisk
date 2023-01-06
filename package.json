@@ -4,7 +4,7 @@
   "description": "A project to HackABoss",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "initDB": "node bbdd/initDB.js",
     "dev": "nodemon server.js"
   },
   "keywords": [

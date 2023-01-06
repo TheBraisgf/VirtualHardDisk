@@ -27,11 +27,7 @@ const newProfileFolder = async () => {
 
 const newFolder = async (folderName) => {
   const root = path.join(__dirname, process.env.ROOT);
-  const userFolder = path.join(
-    __dirname,
-    process.env.ROOT,
-    folderName.username
-  );
+  const userFolder = path.join(__dirname, process.env.ROOT, folderName);
 
   //Comprobamos que exista la carpeta raiz.
   try {

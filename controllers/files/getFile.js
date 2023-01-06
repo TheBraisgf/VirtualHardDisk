@@ -1,4 +1,6 @@
 const getFileById = require("../../bbdd/queries/files/getFileByIdQuery");
+const selectUserById = require("../../bbdd/queries/users/selectUserByIdQuery");
+
 const path = require("path");
 const fs = require("fs");
 
@@ -8,6 +10,7 @@ const getFile = async (req, res, next) => {
     const { idFile, folder } = req.params;
 
     const fileName = await getFileById(idFile, user.id);
+    const username = await selectUserById(user.id);
     let downloadPath;
 
     if (!folder) {
@@ -15,7 +18,7 @@ const getFile = async (req, res, next) => {
         __dirname,
         "../../",
         process.env.ROOT,
-        user.username,
+        username.username,
         fileName.name
       );
     } else {
@@ -23,7 +26,7 @@ const getFile = async (req, res, next) => {
         __dirname,
         "../../",
         process.env.ROOT,
-        user.username,
+        username.username,
         folder,
         fileName.name
       );

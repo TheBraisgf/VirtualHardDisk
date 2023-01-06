@@ -1,6 +1,42 @@
 # DEV NOTES
 
-REMOVE FOLDER
+Breogán González Fernández10:45
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET
+Breogán González Fernández11:10
+https://www.npmjs.com/package/express-fileupload
+files
+https://github.com/mscdex/busboy#apiR
+
+//CORS
+const cors = require('cors');
+app.use(cors({
+origin: '\*'
+}));
+
+//API
+openapi: '3.0.2'
+info:
+title: VirtualHardDrive
+version: '1.0'
+servers:
+
+- url: http://127.0.0.1:4000
+  paths:
+  /users:
+  post:
+  description: 'User register process'
+  requestBody:
+  required: true
+  content:
+  application/json:
+  schema:
+  type: object
+  properties:
+  username:
+  type: string
+  example: braisgf
+  email:
+  type: string
 
 # Online Hard Disk
 

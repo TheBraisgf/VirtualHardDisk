@@ -18,7 +18,7 @@ const newUser = async (req, res, next) => {
     //Creamos tambien una carpeta para contener las fotos de perfil
     await newProfileFolder();
 
-    res.status(200).send({
+    res.status(201).send({
       message: "User and folder created",
     });
   } catch (err) {

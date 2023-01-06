@@ -58,6 +58,7 @@ const main = async () => {
     console.error(err);
   } finally {
     if (connection) connection.release();
+    process.exit();
   }
 };
 

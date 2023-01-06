@@ -16,7 +16,7 @@ const newFile = async (req, res, next) => {
     const username = await selectUserById(user.id);
 
     //Llamamos a create folder para comprobar y/o crear la carpeta del usuario
-    await newFolder(username);
+    await newFolder(username.username);
 
     //Guardar el archivo en el disco y obtener su nombre
     const fileExist = await saveFile(req.files.file, username, folder);
