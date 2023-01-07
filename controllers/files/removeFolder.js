@@ -8,7 +8,6 @@ const removeFolder = async (req, res, next) => {
   const { removeFolderName } = req.body;
 
   let userId = await selectUserById(user.id);
-  console.log(userId);
   const removeFolderPath = path.join(
     __dirname,
     "../../",
@@ -16,7 +15,6 @@ const removeFolder = async (req, res, next) => {
     userId.username,
     removeFolderName
   );
-  console.log(removeFolderPath);
 
   try {
     fs.rmdirSync(removeFolderPath, { recursive: true, force: true });

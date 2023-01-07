@@ -38,8 +38,6 @@ const newFolder = async (folderName) => {
     await fs.mkdir(root);
   }
 
-  console.log(userFolder);
-
   try {
     await fs.access(userFolder);
   } catch {

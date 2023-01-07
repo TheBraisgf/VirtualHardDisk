@@ -17,7 +17,7 @@ WHERE username = ? OR email = ?
     );
 
     if (users.length > 0) {
-      throw generateError("User found", 403);
+      throw generateError("User found", 409);
     }
 
     //Encriptamos la contraseña

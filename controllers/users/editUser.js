@@ -9,7 +9,7 @@ const editUser = async (req, res, next) => {
     const user = req.user;
     let { username, bio } = req.body;
     let actualInfo = await selectUserByEmailQuery(user.email);
-    console.log(req.files);
+
     let photo;
     let newPhoto;
     let photoName;
@@ -29,7 +29,6 @@ const editUser = async (req, res, next) => {
     );
     if (!req.files) {
       photoName = actualInfo.photo;
-      console.log("ESTOY EN EL IF: " + photo);
     } else {
       newPhoto = path.join(
         __dirname,
@@ -37,7 +36,6 @@ const editUser = async (req, res, next) => {
         "profilePhotos",
         req.files.photo.name
       );
-      console.log("ESTOY EN EL ELSE EN NEWFOTO: " + newPhoto);
       photo = req.files.photo;
       photoName = req.files.photo.name;
 
@@ -54,10 +52,6 @@ const editUser = async (req, res, next) => {
         });
       }
     }
-
-    console.log("USER INFO TOKEN:" + user);
-
-    console.log(user);
 
     if (!username) {
       username = actualInfo.username;
@@ -80,13 +74,10 @@ const editUser = async (req, res, next) => {
     });
 
     //Tratamos de obtener al usuario con el ID que venga de Auth
-    console.log("INFOQUERY" + username, photo, bio, actualInfo.id);
     await updateUserInfoQuery(username, photoName, bioQuery, actualInfo.id);
 
     //GUARDAR LA FOTO EN DISCO
     //Comprobamos que exista folder de fotos de perfil.
-
-    console.log(newPhoto);
 
     res.status(200).send({
       message: "User Updated",

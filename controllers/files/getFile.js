@@ -32,8 +32,6 @@ const getFile = async (req, res, next) => {
       );
     }
 
-    console.log(downloadPath);
-
     //Comprobamos que existe el archivo en root
     fs.open(downloadPath, "r", function (err, f) {
       if (err) {
@@ -42,7 +40,6 @@ const getFile = async (req, res, next) => {
           message: "File no exists",
         });
       } else {
-        console.log("Found File!!");
         res.download(downloadPath, () => {
           console.log("Download completed");
         });

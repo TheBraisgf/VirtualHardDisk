@@ -3,14 +3,29 @@ const express = require("express");
 const morgan = require("morgan");
 const fileUpload = require("express-fileupload");
 const isAuth = require("./middlewares/isAuth");
+const cors = require("cors");
 
 const app = express();
+
+//CORS PARA OPENAPI
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 //MW Leer body
 app.use(express.json());
 
-//MW LEER FORM DATA
-app.use(fileUpload());
+//MW LEER FORM DATA CON LIMITE DE 50 MB PARA LOS ARCHIVOS
+app.use(
+  fileUpload({
+    limits: {
+      fileSize: 52428800,
+    },
+    abortOnLimit: true,
+  })
+);
 
 //MW Morgan
 app.use(morgan("dev"));
