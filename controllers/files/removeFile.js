@@ -12,7 +12,6 @@ const removeFile = async (req, res, next) => {
     const username = await selectUserById(user.id);
 
     const fileName = await getFileById(idFile, user.id);
-    console.log(newFolderName);
     if (!newFolderName) {
       try {
         const removePath = path.join(
@@ -22,8 +21,6 @@ const removeFile = async (req, res, next) => {
           username.username,
           fileName.name
         );
-
-        console.log(removePath);
 
         //Comprobamos que existe el archivo en root
         fs.open(removePath, "r", function (err, f) {
@@ -79,7 +76,6 @@ const removeFile = async (req, res, next) => {
             if (err) return console.log(err);
             console.log("file deleted successfully");
           });
-          console.log("BORRADO LOGICO");
           //Hacemos el borrado logico de la BBDD
           removeElementByIdQuery(idFile, user.id);
           res.status(200).send({

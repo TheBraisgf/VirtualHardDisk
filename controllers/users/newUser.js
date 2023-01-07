@@ -4,7 +4,6 @@ const { generateError, newFolder, newProfileFolder } = require("../../helpers");
 const newUser = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
-
     //Comprobamos que existan todos los datos necesarios para el registro
     if (!username || !email || !password) {
       throw generateError("Missing data", 400);

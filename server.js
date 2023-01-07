@@ -41,7 +41,7 @@ const { newUser, loginUser, editUser } = require("./controllers/users/index");
 app.post("/users", newUser);
 
 //Ruta para login de usuario
-app.get("/users/login", loginUser);
+app.post("/users/login", loginUser);
 
 //Ruta para editar usuario
 app.put("/users/edit", isAuth, editUser);
