@@ -34,6 +34,12 @@ To deploy this project you must first create a MySQL database with the name you 
 ```bash
   CREATE DATABASE MYSQL_BBDD
 ```
+
+You should start npm to install the dependencies
+```bash
+  npm install
+```
+
 Now you must run the following command to start the database and create the tables
 ```bash
   npm run initDB
