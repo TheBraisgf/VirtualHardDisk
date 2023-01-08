@@ -8,11 +8,11 @@ const removeFile = async (req, res, next) => {
   try {
     const user = req.user;
     const { idFile } = req.params;
-    const { newFolderName } = req.body;
+    const { folderName } = req.body;
     const username = await selectUserById(user.id);
 
     const fileName = await getFileById(idFile, user.id);
-    if (!newFolderName) {
+    if (!folderName) {
       try {
         const removePath = path.join(
           __dirname,
@@ -57,7 +57,7 @@ const removeFile = async (req, res, next) => {
         "../../",
         process.env.ROOT,
         username.username,
-        newFolderName,
+        folderName,
         fileName.name
       );
 
