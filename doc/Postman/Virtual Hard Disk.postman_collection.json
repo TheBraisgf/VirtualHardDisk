@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"username\":\"Username\",\n\"email\": \"username@gmail.com\",\n\"password\": \"MySuperSecretPassword\"\n}",
+							"raw": "{\n\"username\":\"username\",\n\"email\": \"username@gmail.com\",\n\"password\": \"MySuperSecretPassword\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -38,15 +38,12 @@
 				},
 				{
 					"name": "Login User",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\"email\": \"braisgfF@gmail.com\",\n\"password\": \"12345\"\n}",
+							"raw": "{\n\"email\": \"username@gmail.com\",\n\"password\": \"username\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -71,11 +68,14 @@
 				{
 					"name": "Edit User",
 					"request": {
-						"method": "PUT",
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PATCH",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{User Token}}",
+								"value": "Bearer TOKEN",
 								"type": "default"
 							}
 						],
@@ -84,17 +84,17 @@
 							"formdata": [
 								{
 									"key": "username",
-									"value": "Brais",
+									"value": "newUsername",
 									"type": "text"
 								},
 								{
 									"key": "photo",
 									"type": "file",
-									"src": "/home/brais/Desktop/gatito.jpeg"
+									"src": []
 								},
 								{
 									"key": "bio",
-									"value": "Hello World!",
+									"value": "newBio",
 									"type": "text"
 								}
 							]
@@ -126,7 +126,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{User Token}}",
+								"value": "Bearer TOKEN",
 								"type": "default"
 							}
 						],
@@ -136,11 +136,11 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/home/brais/Desktop/gatito.jpeg"
+									"src": []
 								},
 								{
 									"key": "folder",
-									"value": "NewFolder",
+									"value": "FolderName",
 									"type": "text"
 								}
 							]
@@ -166,7 +166,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{User Token}}",
+								"value": "Bearer TOKEN",
 								"type": "text"
 							}
 						],
@@ -185,6 +185,40 @@
 					"response": []
 				},
 				{
+					"name": "Get File in Folder",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer TOKEN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:4000/files/FolderName/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"files",
+								"FolderName",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get File",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -194,23 +228,16 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{User Token}}",
+								"value": "Bearer TOKEN",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "folder",
-									"value": "FolderName",
-									"type": "default",
-									"disabled": true
-								}
-							]
+							"formdata": []
 						},
 						"url": {
-							"raw": "http://localhost:4000/files/Bebida/2",
+							"raw": "http://localhost:4000/files/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -218,15 +245,7 @@
 							"port": "4000",
 							"path": [
 								"files",
-								"Bebida",
-								"2"
-							],
-							"query": [
-								{
-									"key": "folder",
-									"value": "Bebida",
-									"disabled": true
-								}
+								"1"
 							]
 						}
 					},
@@ -239,13 +258,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{User Token}}",
+								"value": "Bearer TOKEN",
 								"type": "text"
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"folderName\":\"Bebida\"\n}",
+							"mode": "urlencoded",
+							"urlencoded": [],
 							"options": {
 								"raw": {
 									"language": "json"
@@ -253,7 +272,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:4000/files/3",
+							"raw": "http://localhost:4000/files/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -261,7 +280,7 @@
 							"port": "4000",
 							"path": [
 								"files",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -274,7 +293,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{User Token}}",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJQRVBFIiwiZW1haWwiOiJicmFpc2dmQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJGRSYWdsSFF6TGRsc3M5N09FekhrSE8zamhwQXdRNXFwc0c4WmJjY3MzN0NjNnhuZUs5V29LIiwicGhvdG8iOiJWaXJ0dWFsIEhhcmQgRGlzayAoMikucG5nIiwiYmlvIjoiSE9MQSBRVUUgVEFMIiwiaWF0IjoxNjczMjYxMzYwLCJleHAiOjE2NzU4NTMzNjB9.yy8V9iKo4W3f6pjBFVUVe_8BpWJhzEHPtax87-bWkZo",
 								"type": "text"
 							}
 						],
@@ -288,15 +307,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:4000/files/newfolder",
+							"raw": "http://localhost:4000/folder",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "4000",
 							"path": [
-								"files",
-								"newfolder"
+								"folder"
 							],
 							"query": [
 								{
@@ -316,28 +334,20 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{User Token}}",
+								"value": "Bearer TOKEN",
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"removeFolderName\":\"NewFolder\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "http://localhost:4000/folder",
+							"raw": "http://localhost:4000/folder/NewFolder",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "4000",
 							"path": [
-								"folder"
+								"folder",
+								"NewFolder"
 							]
 						}
 					},

@@ -1,0 +1,244 @@
+openapi: 3.0.0
+info:
+  title: Virtual Hard Disk
+  version: 1.0.0
+components:
+  securitySchemes:
+    Authorization:
+      type: "http"
+      scheme: "bearer"
+      bearerFormat: "JWT"
+servers:
+  - url: http://localhost:4000
+tags:
+  - name: Users Requests
+  - name: Files Request
+paths:
+  /users:
+    post:
+      tags:
+        - Users Requests
+      summary: New User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                username: Username
+                email: username@gmail.com
+                password: MySuperSecretPassword
+      responses:
+        "200":
+          description: Successful response
+        "400":
+          description: Wrong parameters
+        "409":
+          description: "Conflict: User Exists"
+        "500":
+          description: Unhandled error
+  /users/login:
+    post:
+      tags:
+        - Users Requests
+      summary: Login User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: username@gmail.com
+                password: MySuperSecretPassword
+      responses:
+        "200":
+          description: Successful response
+        "400":
+          description: Wrong parameters
+        "401":
+          description: "Incorrect password"
+        "500":
+          description: Unhandled error
+  /users/edit:
+    patch:
+      tags:
+        - Users Requests
+      summary: Edit User
+      security: [{ Authorization: [] }]
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: Brais
+                photo:
+                  type: string
+                  format: binary
+                bio:
+                  type: string
+                  example: Hello World!
+      responses:
+        "200":
+          description: Successful response
+        "400":
+          description: Wrong parameters
+        "500":
+          description: Unhandled error
+  /files:
+    post:
+      tags:
+        - Files Request
+      summary: New File
+      security: [{ Authorization: [] }]
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                folder:
+                  type: string
+                  example: NewFolder
+      responses:
+        "201":
+          description: Successful response
+        "400":
+          description: Missing File
+        "409":
+          description: File already exists
+        "500":
+          description: Unhandled error
+    get:
+      tags:
+        - Files Request
+      summary: List Files
+      security: [{ Authorization: [] }]
+      responses:
+        "200":
+          description: Successful response
+        "400":
+          description: Wrong parameters
+        "500":
+          description: Unhandled error
+
+  /files/{fileId}:
+    get:
+      tags:
+        - Files Request
+      summary: Get File
+      security: [{ Authorization: [] }]
+      parameters:
+        - in: path
+          name: fileId
+          schema:
+            type: string
+          required: true
+          description: "This will be the file id"
+      responses:
+        "200":
+          description: Successful response
+        "400":
+          description: Wrong parameters
+        "404":
+          description: "File not found"
+        "500":
+          description: Unhandled error
+
+    delete:
+      tags:
+        - Files Request
+      summary: Remove File
+      security: [{ Authorization: [] }]
+      parameters:
+        - in: path
+          name: fileId
+          schema:
+            type: string
+          required: true
+          description: "This will be the file id"
+      responses:
+        "200":
+          description: Successful response
+        "400":
+          description: Wrong parameters
+        "404":
+          description: "File not found"
+        "500":
+          description: Unhandled error
+
+  /files/{folderName}/{fileId}:
+    get:
+      tags:
+        - Files Request
+      summary: Get File
+      security: [{ Authorization: [] }]
+      parameters:
+        - in: path
+          name: folderName
+          schema:
+            type: string
+          required: true
+          description: "This will be the folder name"
+        - in: path
+          name: fileId
+          schema:
+            type: string
+          required: true
+          description: "This will be the file id"
+      responses:
+        "200":
+          description: Successful response
+        "400":
+          description: Wrong parameters
+        "500":
+          description: Unhandled error
+
+  /folder:
+    post:
+      tags:
+        - Files Request
+      summary: Create Folder
+      security: [{ Authorization: [] }]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                newFolderName: NewFolder
+      responses:
+        "201":
+          description: Successful response
+        "400":
+          description: Wrong parameters
+        "409":
+          description: Directory already Exists
+        "500":
+          description: Unhandled error
+
+  /folder/{folderName}:
+    delete:
+      tags:
+        - Files Request
+      summary: Remove Folder
+      security: [{ Authorization: [] }]
+      parameters:
+        - in: path
+          name: folderName
+          schema:
+            type: string
+          required: true
+          description: "This will be the folder name to remove"
+      responses:
+        "200":
+          description: Successful response
+        "400":
+          description: Wrong parameters
+        "500":
+          description: Unhandled error

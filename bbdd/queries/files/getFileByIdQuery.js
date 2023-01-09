@@ -1,7 +1,7 @@
 const getConnection = require("../../getConnection");
 const { generateError } = require("../../../helpers");
 
-const getFileById = async (idFile, idUser) => {
+const getFileById = async (fileId, idUser) => {
   let connection;
 
   try {
@@ -11,7 +11,7 @@ const getFileById = async (idFile, idUser) => {
       `
    SELECT name FROM files WHERE id = ? AND user_id = ? AND removed = 0
     `,
-      [idFile, idUser]
+      [fileId, idUser]
     );
 
     if (file.length < 1) {

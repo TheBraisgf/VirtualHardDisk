@@ -48,7 +48,6 @@ const newFolder = async (folderName) => {
 // Guardar archivo EN USERNAME
 
 const saveFile = async (file, username, folder) => {
-  console.log(folder);
   if (!folder) {
     const fileName = file.name;
     const uploadsPath = path.join(
@@ -65,7 +64,7 @@ const saveFile = async (file, username, folder) => {
       return true;
     } catch {
       file.mv(uploadsPath, (err) => {
-        if (err) console.log("ERROR: " + err);
+        if (err) console.err("ERROR: " + err);
       });
       return false;
     }
@@ -108,7 +107,7 @@ const saveFile = async (file, username, folder) => {
       return true;
     } catch {
       file.mv(uploadsPath, (err) => {
-        if (err) console.log("ERROR: " + err);
+        if (err) console.err("ERROR: " + err);
       });
       return false;
     }

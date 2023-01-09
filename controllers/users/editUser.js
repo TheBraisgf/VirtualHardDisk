@@ -40,15 +40,13 @@ const editUser = async (req, res, next) => {
       photoName = req.files.photo.name;
 
       photo.mv(newPhoto, (err) => {
-        if (err) console.log("ERROR: " + err);
+        if (err) console.err("ERROR: " + err);
       });
 
-      if (actualInfo.photo === "photo") {
-        console.log("Old Photo");
-      } else {
-        //Eliminamos lafoto del disco
+      if (actualInfo.photo != "photo") {
+        //Eliminamos la foto del disco
         fs.unlink(oldPhoto, function (err) {
-          if (err) return console.log(err);
+          if (err) return console.err(err);
         });
       }
     }
@@ -67,7 +65,7 @@ const editUser = async (req, res, next) => {
     const newPath = path.join(__dirname, "../../", process.env.ROOT, username);
     fs.rename(currPath, newPath, function (err) {
       if (err) {
-        console.log(err);
+        console.err(err);
       } else {
         console.log("Successfully renamed the directory.");
       }

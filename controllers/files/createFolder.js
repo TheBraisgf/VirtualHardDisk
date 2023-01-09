@@ -38,12 +38,12 @@ const createFolder = async (req, res, next) => {
     //Si no es posible acceder al directorio lanzara un error y creamos el directorio
     await fs.mkdir(newFolderPath, (err) => {
       if (err) {
-        res.send({
+        res.status(409).send({
           message: "Directory already Exists!",
         });
         return console.error(err);
       }
-      res.send({
+      res.status(201).send({
         message: "Directory created successfully!",
       });
     });

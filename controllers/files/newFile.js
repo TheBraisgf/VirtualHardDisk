@@ -21,16 +21,14 @@ const newFile = async (req, res, next) => {
     //Guardar el archivo en el disco y obtener su nombre
     const fileExist = await saveFile(req.files.file, username, folder);
 
-    //Guardar el nombre archivo en la base de datos.
-
-    await insertNewFileQuery(file.name, user.id);
-
     if (fileExist) {
-      res.send({
-        message: "File Exists",
+      res.status(409).send({
+        message: "File already exists",
       });
     } else {
-      res.status(200).send({
+      //Guardar el nombre archivo en la base de datos.
+      await insertNewFileQuery(file.name, user.id);
+      res.status(201).send({
         message: "Upload completed",
       });
     }

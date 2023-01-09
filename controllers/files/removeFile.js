@@ -7,11 +7,11 @@ const selectUserById = require("../../bbdd/queries/users/selectUserByIdQuery");
 const removeFile = async (req, res, next) => {
   try {
     const user = req.user;
-    const { idFile } = req.params;
+    const { fileId } = req.params;
     const { folderName } = req.body;
     const username = await selectUserById(user.id);
 
-    const fileName = await getFileById(idFile, user.id);
+    const fileName = await getFileById(fileId, user.id);
     if (!folderName) {
       try {
         const removePath = path.join(
@@ -25,20 +25,20 @@ const removeFile = async (req, res, next) => {
         //Comprobamos que existe el archivo en root
         fs.open(removePath, "r", function (err, f) {
           if (err) {
-            console.error("File no exists");
+            console.error("File not found");
             res.status(404).send({
-              message: "File no exists",
+              message: "File not found",
             });
           } else {
             console.log("Found File!!");
 
             fs.unlink(removePath, function (err) {
-              if (err) return console.log(err);
+              if (err) return console.err(err);
               console.log("file deleted successfully");
             });
 
             //Hacemos el borrado logico de la BBDD
-            removeElementByIdQuery(idFile, user.id);
+            removeElementByIdQuery(fileId, user.id);
 
             res.status(200).send({
               message: "Remove completed",
@@ -64,20 +64,20 @@ const removeFile = async (req, res, next) => {
       //Comprobamos que existe el archivo en root
       fs.open(removePath, "r", function (err, f) {
         if (err) {
-          console.error("File no exists");
+          console.error("File not found");
           res.status(404).send({
-            message: "File no exists",
+            message: "File not found",
           });
         } else {
           console.log("Found File!!");
 
           //Quitamos del disco
           fs.unlink(removePath, function (err) {
-            if (err) return console.log(err);
+            if (err) return console.err(err);
             console.log("file deleted successfully");
           });
           //Hacemos el borrado logico de la BBDD
-          removeElementByIdQuery(idFile, user.id);
+          removeElementByIdQuery(fileId, user.id);
           res.status(200).send({
             message: "Remove completed",
           });

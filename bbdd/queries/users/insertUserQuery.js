@@ -7,13 +7,14 @@ const insertUserQuery = async (username, email, password) => {
 
   try {
     connection = await getConnection();
+
     //Tratamos de obtener a un usuario con ese username o email.
     const [users] = await connection.query(
       `
-SELECT id FROM users 
+SELECT id FROM users
 WHERE username = ? OR email = ?
 `,
-      [username, email]
+      [username.toLowerCase(), email.toLowerCase()]
     );
 
     if (users.length > 0) {

@@ -1,7 +1,7 @@
 const getConnection = require("../../getConnection");
 const { generateError } = require("../../../helpers");
 
-const removeElementByIdQuery = async (idFile, idUser) => {
+const removeElementByIdQuery = async (fileId, idUser) => {
   let connection;
 
   try {
@@ -10,7 +10,7 @@ const removeElementByIdQuery = async (idFile, idUser) => {
     const [file] = await connection.query(
       `
    UPDATE files SET removed = 1 WHERE id = ? AND user_id = ?    `,
-      [idFile, idUser]
+      [fileId, idUser]
     );
   } finally {
     if (connection) connection.release();

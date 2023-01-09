@@ -1,11 +1,10 @@
 const path = require("path");
 const fs = require("fs");
 const selectUserById = require("../../bbdd/queries/users/selectUserByIdQuery");
-const { generateError } = require("../../helpers");
 
 const removeFolder = async (req, res, next) => {
   const user = req.user;
-  const { removeFolderName } = req.body;
+  const { folderName } = req.params;
 
   let userId = await selectUserById(user.id);
   const removeFolderPath = path.join(
@@ -13,7 +12,7 @@ const removeFolder = async (req, res, next) => {
     "../../",
     process.env.ROOT,
     userId.username,
-    removeFolderName
+    folderName
   );
 
   try {
@@ -22,8 +21,8 @@ const removeFolder = async (req, res, next) => {
       message: "Folder Deleted",
     });
   } catch (err) {
-    res.send({
-      message: "Folder No Exists",
+    res.status(404).send({
+      message: "Folder not found",
     });
   }
 };

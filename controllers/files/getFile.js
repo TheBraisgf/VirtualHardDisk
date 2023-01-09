@@ -7,9 +7,9 @@ const fs = require("fs");
 const getFile = async (req, res, next) => {
   try {
     const user = req.user;
-    const { idFile, folder } = req.params;
+    const { fileId, folder } = req.params;
 
-    const fileName = await getFileById(idFile, user.id);
+    const fileName = await getFileById(fileId, user.id);
     const username = await selectUserById(user.id);
     let downloadPath;
 
@@ -35,9 +35,9 @@ const getFile = async (req, res, next) => {
     //Comprobamos que existe el archivo en root
     fs.open(downloadPath, "r", function (err, f) {
       if (err) {
-        console.error("File no exists");
+        console.error("File not found");
         res.status(404).send({
-          message: "File no exists",
+          message: "File not found",
         });
       } else {
         res.download(downloadPath, () => {

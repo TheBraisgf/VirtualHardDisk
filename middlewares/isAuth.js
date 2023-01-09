@@ -9,11 +9,12 @@ const isAuth = async (req, res, next) => {
       throw generateError("Missing authorization", 400);
     }
 
+    const token = authorization.split(" ")[1];
     //Variable donde almacenaremos la info del token descriptado
     let tokenInfo;
 
     try {
-      tokenInfo = jwt.verify(authorization, process.env.SECRET);
+      tokenInfo = jwt.verify(token, process.env.SECRET);
     } catch (err) {
       throw generateError("Invalid token", 401);
     }

@@ -44,7 +44,7 @@ app.post("/users", newUser);
 app.post("/users/login", loginUser);
 
 //Ruta para editar usuario
-app.put("/users/edit", isAuth, editUser);
+app.patch("/users/edit", isAuth, editUser);
 
 /**
  * ###############################
@@ -67,19 +67,19 @@ app.post("/files", isAuth, newFile);
 app.get("/files", isAuth, listFiles);
 
 //Ruta para descargar un archivo
-app.get("/files/:idFile", isAuth, getFile);
+app.get("/files/:fileId", isAuth, getFile);
 
 //Ruta para descargar archivo en folder
-app.get("/files/:folder/:idFile", isAuth, getFile);
+app.get("/files/:folder/:fileId", isAuth, getFile);
 
 //Ruta para borrar archivo en raiz
-app.delete("/files/:idFile/", isAuth, removeFile);
+app.delete("/files/:fileId/", isAuth, removeFile);
 
 //Ruta para crear una carpeta
-app.post("/files/newfolder", isAuth, createFolder);
+app.post("/folder", isAuth, createFolder);
 
 //Ruta para borrar una carpeta Y su contenido
-app.delete("/folder", isAuth, removeFolder);
+app.delete("/folder/:folderName", isAuth, removeFolder);
 
 /**
  * ###############################
@@ -103,5 +103,5 @@ app.use((req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log(`Server listening at ${process.env.PORT}`);
+  console.info(`Server listening at ${process.env.PORT}`);
 });
