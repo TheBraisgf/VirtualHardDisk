@@ -34,6 +34,7 @@ const main = async () => {
         user_id INT UNSIGNED NOT NULL,
         FOREIGN KEY (user_id) REFERENCES users(id),
         name VARCHAR(255) NOT NULL,
+        folder VARCHAR(255) NOT NULL,
         removed BOOLEAN DEFAULT 0,
         createdAt TIMESTAMP NOT NULL
       );
