@@ -1,6 +1,7 @@
 const getConnection = require("../../getConnection");
 const bcrypt = require("bcrypt");
 const { generateError } = require("../../../helpers");
+const { v4: uuidv4 } = require("uuid");
 
 const insertUserQuery = async (username, email, password) => {
   let connection;
@@ -24,14 +25,16 @@ WHERE username = ? OR email = ?
     //Encriptamos la contraseña
     const hashPass = await bcrypt.hash(password, 10);
 
+    let userId = uuidv4();
     //Insertamos el nuevo usuario
     await connection.query(
       `
-INSERT INTO  users (username, email, password, createdAt)
-VALUES (?,?,?,?)
+INSERT INTO  users (id, username, email, password, createdAt)
+VALUES (?,?,?,?,?)
 `,
-      [username, email, hashPass, new Date()]
+      [userId, username, email, hashPass, new Date()]
     );
+    return userId;
   } finally {
     if (connection) connection.release();
   }

@@ -1,4 +1,5 @@
 require("dotenv").config();
+const { newProfileFolder } = require("./helpers");
 const express = require("express");
 const morgan = require("morgan");
 const fileUpload = require("express-fileupload");
@@ -29,6 +30,8 @@ app.use(
 
 //MW Morgan
 app.use(morgan("dev"));
+
+newProfileFolder();
 
 /**
  * ###############################

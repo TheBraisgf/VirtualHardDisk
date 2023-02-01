@@ -10,7 +10,7 @@ const getFile = async (req, res, next) => {
     const { fileId, folder } = req.params;
 
     const fileName = await getFileById(fileId, user.id);
-    const username = await selectUserById(user.id);
+    console.log(fileName);
     let downloadPath;
 
     if (!folder) {
@@ -18,7 +18,7 @@ const getFile = async (req, res, next) => {
         __dirname,
         "../../",
         process.env.ROOT,
-        username.username,
+        user.id,
         fileName.name
       );
     } else {
@@ -26,7 +26,7 @@ const getFile = async (req, res, next) => {
         __dirname,
         "../../",
         process.env.ROOT,
-        username.username,
+        user.id,
         folder,
         fileName.name
       );
@@ -40,9 +40,7 @@ const getFile = async (req, res, next) => {
           message: "File not found",
         });
       } else {
-        res.download(downloadPath, () => {
-          console.log("Download completed");
-        });
+        res.download(downloadPath, () => {});
       }
     });
   } catch (err) {

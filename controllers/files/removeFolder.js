@@ -6,12 +6,11 @@ const removeFolder = async (req, res, next) => {
   const user = req.user;
   const { folderName } = req.params;
 
-  let userId = await selectUserById(user.id);
   const removeFolderPath = path.join(
     __dirname,
     "../../",
     process.env.ROOT,
-    userId.username,
+    user.id,
     folderName
   );
 

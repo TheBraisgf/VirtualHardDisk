@@ -10,12 +10,11 @@ const newUser = async (req, res, next) => {
     }
 
     //Insertamos el nuevo usuario en la BBDD
-    await insertUserQuery(username, email, password);
+    const userId = await insertUserQuery(username, email, password);
 
-    await newFolder(username);
-
+    await newFolder(userId);
     //Creamos tambien una carpeta para contener las fotos de perfil
-    await newProfileFolder();
+    // await newProfileFolder();
 
     res.status(201).send({
       message: "User and folder created",

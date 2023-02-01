@@ -13,13 +13,8 @@ const newFile = async (req, res, next) => {
     const file = req.files.file;
     const { folder } = req.body;
 
-    const dbUser = await selectUserById(user.id);
-
-    //Llamamos a create folder para comprobar y/o crear la carpeta del usuario
-    await newFolder(dbUser.username);
-
     //Guardar el archivo en el disco y obtener su nombre
-    const fileExist = await saveFile(req.files.file, dbUser, folder);
+    const fileExist = await saveFile(req.files.file, user.id, folder);
 
     if (fileExist) {
       res.status(409).send({
@@ -27,7 +22,7 @@ const newFile = async (req, res, next) => {
       });
     } else {
       //Guardar el nombre archivo en la base de datos.
-      folderName = folder ? folder : dbUser.username
+      let folderName = folder ? folder : user.id;
       await insertNewFileQuery(file.name, user.id, folderName);
       res.status(201).send({
         message: "Upload completed",

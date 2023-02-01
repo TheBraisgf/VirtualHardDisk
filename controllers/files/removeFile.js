@@ -9,7 +9,6 @@ const removeFile = async (req, res, next) => {
     const user = req.user;
     const { fileId } = req.params;
     const { folderName } = req.body;
-    const username = await selectUserById(user.id);
 
     const fileName = await getFileById(fileId, user.id);
     if (!folderName) {
@@ -18,7 +17,7 @@ const removeFile = async (req, res, next) => {
           __dirname,
           "../../",
           process.env.ROOT,
-          username.username,
+          user.id,
           fileName.name
         );
 
@@ -30,11 +29,8 @@ const removeFile = async (req, res, next) => {
               message: "File not found",
             });
           } else {
-            console.log("Found File!!");
-
             fs.unlink(removePath, function (err) {
               if (err) return console.err(err);
-              console.log("file deleted successfully");
             });
 
             //Hacemos el borrado logico de la BBDD
@@ -56,7 +52,7 @@ const removeFile = async (req, res, next) => {
         __dirname,
         "../../",
         process.env.ROOT,
-        username.username,
+        user.id,
         folderName,
         fileName.name
       );
@@ -69,12 +65,9 @@ const removeFile = async (req, res, next) => {
             message: "File not found",
           });
         } else {
-          console.log("Found File!!");
-
           //Quitamos del disco
           fs.unlink(removePath, function (err) {
             if (err) return console.err(err);
-            console.log("file deleted successfully");
           });
           //Hacemos el borrado logico de la BBDD
           removeElementByIdQuery(fileId, user.id);

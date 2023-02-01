@@ -47,13 +47,13 @@ const newFolder = async (folderName) => {
 
 // Guardar archivo EN USERNAME
 
-const saveFile = async (file, username, folder) => {
+const saveFile = async (file, userId, folder) => {
   if (!folder) {
     const fileName = file.name;
     const uploadsPath = path.join(
       __dirname,
       process.env.ROOT,
-      username.username,
+      userId,
       fileName
     );
 
@@ -73,16 +73,11 @@ const saveFile = async (file, username, folder) => {
   //SI EL USUARIO ESPECIFICA UNA CARPETA
   else {
     const fileName = file.name;
-    const folderPath = path.join(
-      __dirname,
-      process.env.ROOT,
-      username.username,
-      folder
-    );
+    const folderPath = path.join(__dirname, process.env.ROOT, userId, folder);
     const uploadsPath = path.join(
       __dirname,
       process.env.ROOT,
-      username.username,
+      userId,
       folder,
       fileName
     );

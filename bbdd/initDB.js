@@ -8,17 +8,12 @@ const main = async () => {
   try {
     connection = await getConnection();
 
-    console.log("Cleaning tables...");
-
     await connection.query(`DROP TABLE IF EXISTS users `);
     await connection.query(`DROP TABLE IF EXISTS files `);
 
-    console.log("Clean succesfully!");
-    console.log("Creating tables...");
-
     await connection.query(`
     CREATE TABLE users (
-        id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+        id VARCHAR(255) PRIMARY KEY,
         username VARCHAR(255) NOT NULL UNIQUE,
         email VARCHAR(255) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
@@ -31,7 +26,7 @@ const main = async () => {
     await connection.query(`
       CREATE TABLE files (
         id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-        user_id INT UNSIGNED NOT NULL,
+        user_id VARCHAR(255),
         FOREIGN KEY (user_id) REFERENCES users(id),
         name VARCHAR(255) NOT NULL,
         folder VARCHAR(255) NOT NULL,
@@ -50,10 +45,10 @@ const main = async () => {
     //Insertar el admin en la BBDD
     await connection.query(
       `
-    INSERT INTO  users (username, email, password, createdAt)
-    VALUES ('admin', ?, ?, ?)
+    INSERT INTO  users (id, username, email, password, createdAt)
+    VALUES (?,'admin', ?, ?, ?)
     `,
-      [process.env.ADMIN_EMAIL, adminPass, new Date()]
+      [process.env.ADMIN_ID, process.env.ADMIN_EMAIL, adminPass, new Date()]
     );
   } catch (err) {
     console.error(err);
