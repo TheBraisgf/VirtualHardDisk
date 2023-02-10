@@ -38,7 +38,12 @@ newProfileFolder();
  * ## Controladores Users       ##
  * ###############################
  */
-const { newUser, loginUser, editUser } = require("./controllers/users/index");
+const {
+  newUser,
+  loginUser,
+  editUser,
+  getUser,
+} = require("./controllers/users/index");
 
 //Ruta para nuevo usuario
 app.post("/users", newUser);
@@ -48,6 +53,9 @@ app.post("/users/login", loginUser);
 
 //Ruta para editar usuario
 app.patch("/users/edit", isAuth, editUser);
+
+// Obtener info de un usuario.
+app.get("/users/:idUser", isAuth, getUser);
 
 /**
  * ###############################

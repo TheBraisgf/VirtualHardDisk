@@ -1,26 +1,26 @@
 const getConnection = require("../../getConnection");
+
 const { generateError } = require("../../../helpers");
 
-const selectUserById = async (idUser) => {
+const selectUserByIdQuery = async (idUser) => {
   let connection;
 
   try {
     connection = await getConnection();
 
-    const [file] = await connection.query(
-      `
-   SELECT username FROM users WHERE id = ?`,
+    const [users] = await connection.query(
+      `SELECT id, username, email, photo, bio, createdAt FROM users WHERE id = ?`,
       [idUser]
     );
 
-    if (file.length < 1) {
-      throw generateError("No users", 404);
+    if (users.length < 1) {
+      throw generateError("Usuario no encontrado", 404);
     }
 
-    return file[0];
+    return users[0];
   } finally {
     if (connection) connection.release();
   }
 };
 
-module.exports = selectUserById;
+module.exports = selectUserByIdQuery;

@@ -1,5 +1,4 @@
 const getFileById = require("../../bbdd/queries/files/getFileByIdQuery");
-const selectUserById = require("../../bbdd/queries/users/selectUserByIdQuery");
 
 const path = require("path");
 const fs = require("fs");
