@@ -17,8 +17,8 @@ const main = async () => {
         username VARCHAR(255) NOT NULL UNIQUE,
         email VARCHAR(255) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
-        photo VARCHAR(255) NOT NULL DEFAULT 'photo',
-        bio VARCHAR(1000) NOT NULL DEFAULT 'bio',
+        photo VARCHAR(255) DEFAULT NULL,
+        bio VARCHAR(1000) NOT NULL DEFAULT 'Write something about you!',
         createdAt TIMESTAMP NOT NULL
       )
     `);

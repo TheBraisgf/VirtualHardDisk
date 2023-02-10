@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const fileUpload = require("express-fileupload");
 const isAuth = require("./middlewares/isAuth");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 
@@ -30,6 +31,9 @@ app.use(
 
 //MW Morgan
 app.use(morgan("dev"));
+
+//MW para servir archivos estaticos
+app.use(express.static(path.join(__dirname, "profilePhotos")));
 
 newProfileFolder();
 
