@@ -11,6 +11,7 @@ const getUser = async (req, res, next) => {
 
     // Objeto con información básica del usuario.
     const userInfo = {
+      id: user.id,
       username: user.username,
       photo: user.photo,
       bio: user.bio,
