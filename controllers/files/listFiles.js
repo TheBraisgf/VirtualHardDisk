@@ -27,6 +27,7 @@ const listFiles = async (req, res, next) => {
           name: file.name,
           type: "file",
           extension: file.extension,
+          parentId: file.folder,
           isDir: false,
         };
         items.push(item);
