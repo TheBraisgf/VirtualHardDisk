@@ -48,7 +48,7 @@ const listFiles = async (req, res, next) => {
         }
       });
 
-      console.log("Items dentro de la función:", items);
+      // console.log("Items dentro de la función:", items);
 
       res.status(200).send({
         data: {

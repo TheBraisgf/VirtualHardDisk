@@ -1,6 +1,6 @@
 const path = require("path");
 const fs = require("fs");
-const selectUserById = require("../../bbdd/queries/users/selectUserByIdQuery");
+const removeElementByFolder = require("../../bbdd/queries/files/removeElementByFolder");
 
 const removeFolder = async (req, res, next) => {
   const user = req.user;
@@ -19,6 +19,8 @@ const removeFolder = async (req, res, next) => {
     res.send({
       message: "Folder Deleted",
     });
+
+    removeElementByFolder(folderName);
   } catch (err) {
     res.status(404).send({
       message: "Folder not found",

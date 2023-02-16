@@ -14,7 +14,8 @@ const selectAllFilesQuery = async (userId) => {
     );
 
     if (files.length < 1) {
-      throw generateError("No files", 404);
+      return files;
+      // throw generateError("No files", 404);
     }
 
     return files;
