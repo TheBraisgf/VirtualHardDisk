@@ -11,7 +11,6 @@ const removeFile = async (req, res, next) => {
     let { folderName } = req.body;
 
     const fileName = await getFileById(fileId, user.id);
-    console.log("FILENAME", fileName, "FOLDERNAME:", folderName);
     if (folderName === "Home") {
       try {
         const removePath = path.join(
@@ -21,7 +20,7 @@ const removeFile = async (req, res, next) => {
           user.id,
           fileName.name
         );
-        console.log("PATH SI ESTA EN ROOT:", removePath);
+
         //Comprobamos que existe el archivo en root
         fs.open(removePath, "r", function (err, f) {
           if (err) {

@@ -35,7 +35,7 @@ const main = async () => {
       );
       `);
 
-    console.log("Create Succesfully!");
+    console.info("Create Succesfully!");
 
     //CREACION DE UN ADMIN
 

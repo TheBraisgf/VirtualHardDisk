@@ -15,7 +15,7 @@ const listFiles = async (req, res, next) => {
 
     fs.readdir(directoryPath, (err, files) => {
       if (err) {
-        return console.log("Unable to scan directory: " + err);
+        return console.error("Unable to scan directory: " + err);
       }
 
       let items = [];
@@ -47,8 +47,6 @@ const listFiles = async (req, res, next) => {
           items.push(item);
         }
       });
-
-      // console.log("Items dentro de la función:", items);
 
       res.status(200).send({
         data: {

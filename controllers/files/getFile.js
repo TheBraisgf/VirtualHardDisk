@@ -9,7 +9,6 @@ const getFile = async (req, res, next) => {
     const { fileId, folder } = req.params;
 
     const fileName = await getFileById(fileId, user.id);
-    console.log(fileName);
     let downloadPath;
 
     if (!folder) {

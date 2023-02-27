@@ -33,7 +33,7 @@ const editUser = async (req, res, next) => {
       photoName = photoName + "." + extension[1];
 
       photo.mv(newPhoto, (err) => {
-        if (err) console.log("ERROR: " + err);
+        if (err) console.error("ERROR: " + err);
       });
 
       if (actualInfo.photo != null) {
@@ -55,7 +55,6 @@ const editUser = async (req, res, next) => {
     if (!newUserName) {
       newUserName = actualInfo.username;
     }
-    console.log(photoName);
     //Tratamos de obtener al usuario con el ID que venga de Auth
     await updateUserInfoQuery(newUserName, photoName, bioQuery, actualInfo.id);
 

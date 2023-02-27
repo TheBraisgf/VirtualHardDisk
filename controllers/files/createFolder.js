@@ -5,7 +5,6 @@ const createFolder = (req, res, next) => {
   const user = req.user;
   const { newFolderName } = req.body;
 
-  console.log(newFolderName);
   const root = path.join(__dirname, "../../", process.env.ROOT);
   //Comprobamos que exista la carpeta raiz.
   try {
